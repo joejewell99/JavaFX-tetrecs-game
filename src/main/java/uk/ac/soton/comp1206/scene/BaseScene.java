@@ -10,10 +10,21 @@ import uk.ac.soton.comp1206.ui.GameWindow;
  */
 public abstract class BaseScene {
 
+    /**
+     * The game window used by this class.
+     */
     protected final GameWindow gameWindow;
 
+    /**
+     * The root node of the JavaFX scene graph for this class.
+     */
     protected GamePane root;
+
+    /**
+     * The scene associated with this class.
+     */
     protected Scene scene;
+
 
     /**
      * Create a new scene, passing in the GameWindow the scene will be displayed in

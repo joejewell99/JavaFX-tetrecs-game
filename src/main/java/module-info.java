@@ -1,3 +1,9 @@
+/**
+ * Defines the module 'uk.ac.soton.comp1206', which encompasses the components of a specific application.
+ * This module requires various JavaFX modules for user interface and media handling, as well as external libraries
+ * for logging and WebSocket client functionality. It exports specific packages for external use and opens
+ * the 'uk.ac.soton.comp1206.ui' package for use by JavaFX's FXML loader.
+ */
 module uk.ac.soton.comp1206 {
     requires java.scripting;
     requires javafx.controls;

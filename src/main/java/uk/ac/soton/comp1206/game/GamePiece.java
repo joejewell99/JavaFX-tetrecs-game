@@ -209,6 +209,25 @@ public class GamePiece {
 
         blocks = rotated;
     }
+    /**
+     * Rotate this piece exactly once by rotating it's 3x3 grid left.
+     */
+    public void rotateLeft() {
+        int[][] rotated = new int[blocks.length][blocks[0].length];
+        rotated[0][0] = blocks[2][0];
+        rotated[0][1] = blocks[1][0];
+        rotated[0][2] = blocks[0][0];
+
+        rotated[1][0] = blocks[2][1];
+        rotated[1][1] = blocks[1][1];
+        rotated[1][2] = blocks[0][1];
+
+        rotated[2][0] = blocks[2][2];
+        rotated[2][1] = blocks[1][2];
+        rotated[2][2] = blocks[0][2];
+
+        blocks = rotated;
+    }
 
 
     /**

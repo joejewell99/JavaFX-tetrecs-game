@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp1206.App;
+import uk.ac.soton.comp1206.game.Game;
 import uk.ac.soton.comp1206.network.Communicator;
 import uk.ac.soton.comp1206.scene.*;
 
@@ -31,7 +32,7 @@ public class GameWindow {
     private BaseScene currentScene;
     private Scene scene;
 
-    final Communicator communicator;
+    //final Communicator communicator;
 
     /**
      * Create a new GameWindow attached to the given stage with the specified width and height
@@ -55,7 +56,7 @@ public class GameWindow {
         setupDefaultScene();
 
         //Setup communicator
-        communicator = new Communicator("ws://ofb-labs.soton.ac.uk:9700");
+        //communicator = new Communicator("ws://ofb-labs.soton.ac.uk:9700");
 
         //Go to menu
         startMenu();
@@ -86,6 +87,19 @@ public class GameWindow {
     public void startChallenge() { loadScene(new ChallengeScene(this)); }
 
     /**
+     * Display the instructions page
+     */
+
+    public void startInstructionsPage() { loadScene(new InstructionScene(this)); }
+
+    /**
+     * Displays the Score page
+     * @param currentGameState takes the current game state of Game object
+     */
+
+    public void startScorePage(Game currentGameState) { loadScene(new ScoresScene(this, currentGameState)); }
+
+    /**
      * Setup the default settings for the stage itself (the window), such as the title and minimum width and height.
      */
     public void setupStage() {
@@ -101,7 +115,7 @@ public class GameWindow {
      */
     public void loadScene(BaseScene newScene) {
         //Cleanup remains of the previous scene
-        cleanup();
+       // cleanup();
 
         //Create the new scene and set it up
         newScene.build();
@@ -124,10 +138,13 @@ public class GameWindow {
     /**
      * When switching scenes, perform any cleanup needed, such as removing previous listeners
      */
+
+    /**
     public void cleanup() {
         logger.info("Clearing up previous scene");
         communicator.clearListeners();
     }
+     */
 
     /**
      * Get the current scene being displayed
@@ -157,7 +174,4 @@ public class GameWindow {
      * Get the communicator
      * @return communicator
      */
-    public Communicator getCommunicator() {
-        return communicator;
-    }
 }

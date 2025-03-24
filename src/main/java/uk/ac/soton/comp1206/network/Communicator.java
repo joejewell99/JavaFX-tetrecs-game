@@ -30,6 +30,8 @@ public class Communicator {
      *
      * @param server server to connect to
      */
+
+
     public Communicator(String server) {
 
         try {
