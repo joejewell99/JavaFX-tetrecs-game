@@ -3,14 +3,14 @@ package uk.ac.soton.comp1206.scene;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
@@ -56,6 +56,7 @@ public class MenuScene extends BaseScene {
 
         var mainPane = new BorderPane();
         menuPane.getChildren().add(mainPane);
+        menuPane.getChildren().add(createVolumeControls());
 
         //Awful title + animations + GUI + Sound
         Image titleImage = new Image("C:\\Comp1206\\coursework\\src\\main\\resources\\images\\TetrECS.png");
@@ -116,6 +117,44 @@ public class MenuScene extends BaseScene {
         hTPButton.setOnAction(this::startInstructionsPage);
 
         exitButton.setOnAction(actionEvent -> System.exit(0));
+    }
+
+    /**
+     * Create controls for adjusting the menu background music volume.
+     * @return a small volume control panel
+     */
+    private VBox createVolumeControls() {
+        Button volumeButton = new Button("VOL");
+        volumeButton.getStyleClass().add("volumeButton");
+
+        Slider volumeSlider = new Slider(0, 100, menuMedia.getMasterVolume() * 100);
+        volumeSlider.getStyleClass().add("volumeSlider");
+        volumeSlider.setOrientation(Orientation.VERTICAL);
+        volumeSlider.setShowTickMarks(false);
+        volumeSlider.setShowTickLabels(false);
+        volumeSlider.setPrefHeight(110);
+        volumeSlider.setVisible(false);
+        volumeSlider.setManaged(false);
+
+        volumeButton.setOnAction(actionEvent -> {
+            boolean showingSlider = !volumeSlider.isVisible();
+            volumeSlider.setVisible(showingSlider);
+            volumeSlider.setManaged(showingSlider);
+        });
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            menuMedia.setMasterVolume(newValue.doubleValue() / 100);
+        });
+
+        VBox volumeControls = new VBox(8, volumeButton, volumeSlider);
+        volumeControls.getStyleClass().add("volumeControl");
+        volumeControls.setAlignment(Pos.CENTER);
+        volumeControls.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        volumeControls.setPrefSize(54, Region.USE_COMPUTED_SIZE);
+        volumeControls.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        StackPane.setAlignment(volumeControls, Pos.CENTER_RIGHT);
+        StackPane.setMargin(volumeControls, new Insets(0, 20, 0, 0));
+        return volumeControls;
     }
 
     /**

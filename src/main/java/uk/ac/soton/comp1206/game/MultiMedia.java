@@ -9,12 +9,14 @@ import javafx.scene.media.MediaPlayer;
 public class MultiMedia {
     private MediaPlayer foregroundSound;
     private MediaPlayer backgroundMusic;
+    private static double masterVolume = 1.0;
     /**
      * Plays the specified audio file as foreground sound.
      * @param audioFile the path to the audio file to be played
      */
     public void playAudioFile(String audioFile){
           foregroundSound = new MediaPlayer(new Media(getClass().getResource(audioFile).toExternalForm()));
+          foregroundSound.setVolume(masterVolume);
           foregroundSound.play();
     }
     /**
@@ -25,8 +27,31 @@ public class MultiMedia {
     public void playBackgroundMusic(String musicFile){
         backgroundMusic = new MediaPlayer(new Media(getClass().getResource(musicFile).toExternalForm()));
         backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMusic.setVolume(masterVolume);
         backgroundMusic.play();
 
+    }
+
+    /**
+     * Sets the master volume between 0.0 and 1.0.
+     * @param volume the desired master volume
+     */
+    public void setMasterVolume(double volume) {
+        masterVolume = Math.max(0.0, Math.min(1.0, volume));
+        if (backgroundMusic != null) {
+            backgroundMusic.setVolume(masterVolume);
+        }
+        if (foregroundSound != null) {
+            foregroundSound.setVolume(masterVolume);
+        }
+    }
+
+    /**
+     * Gets the current master volume.
+     * @return master volume between 0.0 and 1.0
+     */
+    public double getMasterVolume() {
+        return masterVolume;
     }
     /**
      * Stops the background music if it is currently playing.

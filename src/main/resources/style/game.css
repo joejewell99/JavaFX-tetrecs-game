@@ -38,6 +38,36 @@
     -fx-fill: yellow;
 }
 
+.volumeControl {
+    -fx-background-color: rgba(0, 0, 0, 0.45);
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-padding: 6px;
+}
+
+.volumeButton {
+    -fx-font-family: 'Orbitron';
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(0, 0, 0, 0.65);
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, black, 1, 1.0, 1, 1);
+    -fx-min-width: 48px;
+    -fx-min-height: 32px;
+    -fx-padding: 4px;
+}
+
+.volumeButton:hover {
+    -fx-text-fill: yellow;
+    -fx-border-color: yellow;
+}
+
+.volumeSlider {
+    -fx-pref-width: 36px;
+}
+
 .bigtitle {
     -fx-fill: yellow;
     -fx-font-family: 'Orbitron';
